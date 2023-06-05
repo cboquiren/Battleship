@@ -131,17 +131,40 @@ const placeBattleship = () => {
 
 // an array of objects
 
-function Person(firstName, lastName) {
-  this.firstName = firstName;
-  this.lastName = lastName;
+// function Person(firstName, lastName) {
+//   this.firstName = firstName;
+//   this.lastName = lastName;
+// }
+
+
+// const family = {};
+
+// family.mother = new Person("Janet", "Jones");
+// family.father = new Person("Tyrone", "Jones");
+// family.daughter = new Person("Maria", "Jones");
+
+// console.table(family);
+
+
+const people = {
+  'A': [`${String.fromCharCode(94)}`, '', ''],
+  'B': ['', '', ''],
+  'C': [, '', ''],
 }
 
+console.table(people);
 
-const family = {};
 
-family.mother = new Person("Janet", "Jones");
-family.father = new Person("Tyrone", "Jones");
-family.daughter = new Person("Maria", "Jones");
+const createLetters = (num) => {
+    let letter = [];
+    for (let i = 0; i < num; i++) {
+      letter.push(String.fromCharCode(65 + i));
+    }
+    return letter;
+  }
+  let rows = createLetters(3);
 
-console.table(family);
+  let gameBoard = {};
+  const buildBoard = (arr) => {
 
+  }
