@@ -146,25 +146,72 @@ const placeBattleship = () => {
 // console.table(family);
 
 
-const people = {
-  'A': [`${String.fromCharCode(94)}`, '', ''],
-  'B': ['', '', ''],
-  'C': [, '', ''],
+// const people = {
+//   'A': [`${String.fromCharCode(94)}`, '', ''],
+//   'B': ['', '', ''],
+//   'C': [, '', ''],
+// }
+
+// console.table(people);
+
+
+
+
+
+
+
+// This is how to table a grid
+/* let testBoard = {
+  A: {1: '', 2: '', 3: ''},
+  B: {1: '', 2: '', 3: ''},
+  C: {1: '', 2: '', 3: ''}
 }
 
-console.table(people);
-
+console.table(testBoard); */
 
 const createLetters = (num) => {
-    let letter = [];
-    for (let i = 0; i < num; i++) {
-      letter.push(String.fromCharCode(65 + i));
-    }
-    return letter;
+  let letters = [];
+  for (let i = 0; i < num; i++) {
+    letters.push(String.fromCharCode(65 + i));
   }
-  let rows = createLetters(3);
+  return letters;
+}
+let rows = createLetters(10);
 
-  let gameBoard = {};
-  const buildBoard = (arr) => {
-
+const columnFill = () => {
+  let col = {};
+  for (let i = 1; i < rows.length + 1; i++) {
+    col[i] = '';
   }
+  return col;
+}
+
+const board = {};
+
+for (let letter of rows) {
+  board[letter] = columnFill();
+};
+
+console.table(board);
+
+console.log(board.A)
+
+const fillMiss = (letter, num) => {
+  board[letter][num] = 'O';
+};
+
+fillMiss('A', 3);
+
+console.log(board.A)
+console.table(board)
+
+
+
+// regex testing
+
+/* let test = 'A10'
+let using = /([A-Z]\d0?)/gm;
+let regex = new RegExp(`^([A-${rows[rows.length-1]}]([1-9]{1}|10))$`, 'gm');
+([...columns])
+let check = regex.test(test);
+console.log(regex, check); */

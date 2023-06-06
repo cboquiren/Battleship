@@ -1,6 +1,7 @@
 const rs = require("readline-sync");
 
 rs.keyIn("Press any key to start the game. ");
+let board = {};
 let fleet = new Map();
 let positions = new Set();
 const ships = [
@@ -20,7 +21,18 @@ const createLetters = (num) => {
   return letter;
 };
 let rows = createLetters(10);
-
+const columnFill = () => {
+  let col = {};
+  for (let i = 1; i < rows.length + 1; i++) {
+    col[i] = '';
+  }
+  return col;
+}
+const createBoard = () => {
+  for (let letter of rows) {
+    board[letter] = columnFill();
+  };
+}
 const randomizer = (max) => {
   return Math.floor(Math.random() * max);
 };
@@ -68,6 +80,12 @@ const fleetDelete = (target) => {
     }
   }
 };
+const fillMiss = ([letter, num]) => {
+  board[letter][num] = 'O';
+};
+const fillHit = ([letter, num]) => {
+  board[letter][num] = 'X';
+}
 const targetHandle = (target) => {
   if (misses.has(target)) {
     console.log("You have already picked this location! Miss");
@@ -75,6 +93,7 @@ const targetHandle = (target) => {
     positions.delete(target);
     misses.add(target);
     fleetDelete(target);
+    fillHit(target);
     console.log(
       `Hit! You have hit a ship! ${fleet.size} ship${
         fleet.size === 1 ? "" : "s"
@@ -82,18 +101,22 @@ const targetHandle = (target) => {
     );
   } else {
     misses.add(target);
+    fillMiss(target);
     console.log("You have missed!");
   }
 };
 const battleShip = () => {
+  board = {};
   fleet = new Map();
   positions = new Set();
   misses = new Set();
   ships.forEach((ship) => placeShip(ship));
+  createBoard();
   console.table(fleet);
   while (fleet.size > 0) {
+    console.table(board);
     let target = rs.question("Enter a location to strike, ie A1 : ", {
-      limit: /([A-Z]\d0?)/gm,
+      limit: new RegExp(`^([A-${rows[rows.length-1]}]([1-9]{1}|10))$`, 'gm'),
       limitMessage:
         "Please enter a location with a capital letter followed by a number, ie A1 ",
     });
