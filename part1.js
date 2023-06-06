@@ -38,7 +38,7 @@ const targetHandle = (target) => {
   }
 }
 
-const Battleship = () => {
+const battleShip = () => {
   fleet = new Set();
   misses = new Set();
   placeShips(2);
@@ -53,11 +53,11 @@ const Battleship = () => {
 
 const restart = () => {
   if (rs.keyInYNStrict('You have destroyed all battleships! Would you like to play again? ')) {
-    Battleship();
+    battleShip();
     restart();
   }
 }
 
 rs.keyIn('Press any key to start the game. ');
-Battleship();
+battleShip();
 restart();
